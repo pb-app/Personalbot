@@ -1,41 +1,23 @@
-// 1. Importações
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 import { GoogleGenerativeAI } from "https://esm.run/@google/generative-ai";
 
-// 2. Configurações (Preencha com suas chaves - NÃO SUBA A CHAVE DA IA NO GITHUB PÚBLICO)
-const firebaseConfig = {
-  apiKey: "AIzaSyBQITYFwBx48FXg1ZYIDnkCtjJSaG3eJ9Y",
-  authDomain: "personalbot-f7db4.firebaseapp.com",
-  projectId: "personalbot-f7db4",
-  storageBucket: "personalbot-f7db4.firebasestorage.app",
-  messagingSenderId: "653194890538",
-  appId: "1:653194890538:web:363cccd4c69cec7a742253"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-// INCLUA SUA CHAVE DO GOOGLE GEMINI AQUI PARA TESTE LOCAL
-const GEMINI_API_KEY = "AQ.Ab8RN6L7tK3k81e59AZKhWfbi8wc_0CTeDfg0kJUwYM2ac8Xew"; 
+// 1. Chave da IA (COLE A SUA CHAVE REAL AQUI, MANTENDO AS ASPAS)
+const GEMINI_API_KEY = "AQ.Ab8RN6Kf6sLYSKFAYrunsztDl8vWgfOixaHSA2YYrwbFEL19vQ"; 
 const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
 
-// 3. Elementos da UI
+// 2. Elementos da Interface
 const btnGerarTreino = document.getElementById('btn-gerar-treino');
 const setupScreen = document.getElementById('setup-screen');
-// Precisamos adicionar esse conteiner no index.html (veja o código abaixo)
 const treinoScreen = document.getElementById('treino-screen'); 
 const listaExercicios = document.getElementById('lista-exercicios');
 
-// 4. Lógica de Geração do Treino com IA
+// 3. Lógica de Geração do Treino com IA
 btnGerarTreino.addEventListener('click', async () => {
     const peso = document.getElementById('input-peso').value;
     const bf = document.getElementById('input-bf').value;
     const objetivo = document.getElementById('select-objetivo').value;
-    const musculoFoco = "Peitoral e Tríceps"; // Pode virar um input depois
 
     if (!peso || !bf) {
-        alert("Preencha seu Peso e BF.");
+        alert("Preencha o seu Peso e BF.");
         return;
     }
 
@@ -43,15 +25,12 @@ btnGerarTreino.addEventListener('click', async () => {
     btnGerarTreino.disabled = true;
 
     try {
-        // Salva histórico no Firebase
-        //await addDoc(collection(db, "historico_medidas"), {
-          //  peso: Number(peso), bf: Number(bf), objetivo, data: serverTimestamp()
-       // });
-
-        // Prompt Inteligente (Aqui entra a simulação de metodologia)
+        console.log("A preparar o prompt para a IA...");
+        
+        // Prompt Inteligente
         const prompt = `Você é um personal trainer de elite focando na metodologia Heavy Duty.
         Crie um treino para um aluno com ${peso}kg, ${bf}% de BF, cujo objetivo é ${objetivo}.
-        O foco do treino de hoje é: ${musculoFoco}.
+        O foco do treino de hoje é: Peitoral e Tríceps.
         Retorne APENAS um JSON válido neste formato exato (sem formatação markdown, sem crases):
         {
           "treino": [
@@ -64,22 +43,24 @@ btnGerarTreino.addEventListener('click', async () => {
         const result = await model.generateContent(prompt);
         const responseText = result.response.text();
         
-        // Limpa possíveis marcações de código markdown retornadas pela IA
+        console.log("Resposta recebida da IA:", responseText);
+
+        // Limpa possíveis formatações devolvidas pela IA
         const cleanJsonString = responseText.replace(/```json/g, '').replace(/```/g, '').trim();
         const treinoData = JSON.parse(cleanJsonString);
 
         renderizarTreino(treinoData.treino);
 
     } catch (error) {
-        console.error("Erro na IA ou Firebase:", error);
-        alert("Erro ao gerar treino. Verifique o console.");
+        console.error("Erro na IA:", error);
+        alert("Erro ao gerar treino. Verifique a consola.");
     } finally {
         btnGerarTreino.innerText = "Gerar Treino do Dia";
         btnGerarTreino.disabled = false;
     }
 });
 
-// 5. Função para desenhar o treino na tela
+// 4. Função para desenhar o treino no ecrã
 function renderizarTreino(exercicios) {
     setupScreen.classList.remove('active');
     treinoScreen.classList.add('active');
