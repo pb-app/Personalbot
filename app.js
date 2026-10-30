@@ -17,7 +17,7 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 // INCLUA SUA CHAVE DO GOOGLE GEMINI AQUI PARA TESTE LOCAL
-const GEMINI_API_KEY = "SUA_CHAVE_AQUI"; 
+const GEMINI_API_KEY = "AQ.Ab8RN6L7tK3k81e59AZKhWfbi8wc_0CTeDfg0kJUwYM2ac8Xew"; 
 const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
 
 // 3. Elementos da UI
