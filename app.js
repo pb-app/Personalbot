@@ -44,9 +44,9 @@ btnGerarTreino.addEventListener('click', async () => {
 
     try {
         // Salva histórico no Firebase
-        await addDoc(collection(db, "historico_medidas"), {
-            peso: Number(peso), bf: Number(bf), objetivo, data: serverTimestamp()
-        });
+        //await addDoc(collection(db, "historico_medidas"), {
+          //  peso: Number(peso), bf: Number(bf), objetivo, data: serverTimestamp()
+       // });
 
         // Prompt Inteligente (Aqui entra a simulação de metodologia)
         const prompt = `Você é um personal trainer de elite focando na metodologia Heavy Duty.
