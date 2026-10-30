@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AI Trainer MVP</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>AI Trainer</h1>
+    </header>
+
+    <main id="app-container">
+        <!-- Tela de Perfil e Setup -->
+        <div id="setup-screen" class="screen active">
+            <h2>Seu Perfil Hoje</h2>
+            
+            <div class="input-group">
+                <label>Peso (kg)</label>
+                <input type="number" id="input-peso" placeholder="Ex: 80">
+            </div>
+
+            <div class="input-group">
+                <label>Percentual de Gordura (BF %)</label>
+                <input type="number" id="input-bf" placeholder="Ex: 15">
+            </div>
+
+            <div class="input-group">
+                <label>Objetivo Atual</label>
+                <select id="select-objetivo">
+                    <option value="hipertrofia">Hipertrofia Máxima</option>
+                    <option value="emagrecimento">Definição / Seca</option>
+                    <option value="forca">Ganho de Força</option>
+                </select>
+            </div>
+
+            <button id="btn-gerar-treino" class="btn-primary">Gerar Treino do Dia</button>
+        </div>
+    </main>
+
+    <!-- O type="module" é essencial para importar o Firebase e a IA depois -->
+    <script type="module" src="app.js"></script>
+</body>
+</html>
