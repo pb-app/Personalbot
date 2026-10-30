@@ -5,7 +5,12 @@ import { GoogleGenerativeAI } from "https://esm.run/@google/generative-ai";
 
 // 2. Configurações (Preencha com suas chaves - NÃO SUBA A CHAVE DA IA NO GITHUB PÚBLICO)
 const firebaseConfig = {
-  // SUAS CHAVES DO FIREBASE AQUI
+  apiKey: "AIzaSyBQITYFwBx48FXg1ZYIDnkCtjJSaG3eJ9Y",
+  authDomain: "personalbot-f7db4.firebaseapp.com",
+  projectId: "personalbot-f7db4",
+  storageBucket: "personalbot-f7db4.firebasestorage.app",
+  messagingSenderId: "653194890538",
+  appId: "1:653194890538:web:363cccd4c69cec7a742253"
 };
 
 const app = initializeApp(firebaseConfig);
